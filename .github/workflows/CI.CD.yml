@@ -15,7 +15,6 @@ jobs:
       contents: read
 
     env:
-      ENV_PATH: .env
       S3_BUCKET_DIR_NAME: production
       DEPLOYMENT_GROUP_NAME: production
 
@@ -29,19 +28,21 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 구성 폴더 생성
-        run: mkdir -p config
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}
 
-      - name: .env 파일 생성
-        run: |
-          touch ${{ env.ENV_PATH }}
-          echo DOMAIN_FIR=${{ secrets.DOMAIN_FIR }} >> ${{ env.ENV_PATH }}
-          echo SOCKET_PORT_PROD=${{ secrets.SOCKET_PORT_PROD }} >> ${{ env.ENV_PATH }}
-          echo SOCKET_PORT_TEST=${{ secrets.SOCKET_PORT_TEST }} >> ${{ env.ENV_PATH }}
+      - name: Gradle 빌드
+        run: ./gradlew build
 
-      - name: Zip 파일 생성
-        run: zip -qq -r ./$GITHUB_SHA.zip .
-        shell: bash
+      - name: 빌드 결과 압축
+        run: zip -qq -r $GITHUB_SHA.zip build/libs/
 
       - name: AWS 접근 설정
         uses: aws-actions/configure-aws-credentials@v2
