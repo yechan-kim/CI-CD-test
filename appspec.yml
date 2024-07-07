@@ -16,11 +16,11 @@ file_exists_behavior: OVERWRITE
 permissions:
   - object: /home/ubuntu
     pattern: '**'
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
 
 hooks:
   AfterInstall:
     - location: scripts/after-deploy.sh
       timeout: 60
-      runas: root
+      runas: ubuntu
