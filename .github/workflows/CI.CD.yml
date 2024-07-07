@@ -57,7 +57,7 @@ jobs:
       - name: CodeDeploy를 사용하여 EC2에 배포
         run: |
           aws deploy create-deployment \
-            --application-name codedeploy-app \
+            --application-name springboot-developer \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.DEPLOYMENT_GROUP_NAME }} \
             --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},bundleType=zip,key=${{ env.S3_BUCKET_DIR_NAME }}/$GITHUB_SHA.zip
