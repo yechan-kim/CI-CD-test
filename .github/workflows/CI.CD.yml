@@ -29,6 +29,7 @@ jobs:
 
       - name: 📦 Zip project files
           run: zip -qq -r ./$GITHUB_SHA.zip .
+          shell: bash
 
       - name: 🌎 Access to AWS
         uses: aws-actions/configure-aws-credentials@v2
