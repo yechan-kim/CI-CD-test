@@ -1,24 +1,13 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
-    destination: /home/ubuntu/api_back
-  - source: /nginx
-    destination: /home/ubuntu/nginx
-  - source: /docker-compose.yml
-    destination: /home/ubuntu
-  - source: /.env
-    destination: /home/ubuntu
-  - source: /config/
-    destination: /home/ubuntu/config
-file_exists_behavior: OVERWRITE
-
+    destination: /home/ubuntu/enhance
 permissions:
-  - object: /home/ubuntu
-    pattern: '**'
+  - object: /home/ubuntu/enhance/
     owner: ubuntu
     group: ubuntu
-
 hooks:
   AfterInstall:
     - location: scripts/after-deploy.sh
