@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew build
 
       - name: 빌드 결과 압축
-        run: tar -czf $GITHUB_SHA.tar.gz .
+        run: tar --ignore-failed-read -czf $GITHUB_SHA.tar.gz .
 
       - name: AWS 접근 설정
         uses: aws-actions/configure-aws-credentials@v2
