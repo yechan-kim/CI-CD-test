@@ -48,7 +48,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: S3로 업로드
-        run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://${{ secrets.S3_BUCKET_NAME }}/${{ env.S3_BUCKET_DIR_NAME }}/$GITHUB_SHA.zip
+        run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_BUCKET_DIR_NAME }}/$GITHUB_SHA.zip
 
       - name: CodeDeploy를 사용하여 EC2에 배포
         run: |
