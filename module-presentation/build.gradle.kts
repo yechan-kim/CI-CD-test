@@ -20,3 +20,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
+
+tasks.getByName<BootJar>("bootJar") {
+    mainClass.set("site.yourevents.YourEventsApplicationKt")
+}
