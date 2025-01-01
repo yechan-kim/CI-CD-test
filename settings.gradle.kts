@@ -6,3 +6,4 @@ include("module-domain")
 
 include("module-infrastructure")
 include("module-infrastructure:persistence-db")
+include("module-infrastructure:security")
