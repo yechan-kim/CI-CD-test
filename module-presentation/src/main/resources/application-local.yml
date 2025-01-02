@@ -16,3 +16,7 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+
+app:
+  server:
+    url: http://localhost:8080
