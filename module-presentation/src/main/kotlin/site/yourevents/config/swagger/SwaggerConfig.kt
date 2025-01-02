@@ -11,21 +11,24 @@ import io.swagger.v3.oas.models.servers.Server
 import org.springdoc.core.customizers.OperationCustomizer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.HandlerMethod
 
-
+@Configuration
 class SwaggerConfig {
+
     @Value("\${app.server.url}")
-    private val serverUrl: String? = null
+    private lateinit var serverUrl: String
 
     @Bean
     fun openAPI(): OpenAPI {
-        val jwt = "JWT"
-        val securityRequirement: SecurityRequirement = SecurityRequirement().addList(jwt)
+        val jwtScheme = "JWT"
 
+        val securityRequirement = SecurityRequirement().addList(jwtScheme)
         val components = Components().addSecuritySchemes(
-            jwt, SecurityScheme()
-                .name(jwt)
+            jwtScheme,
+            SecurityScheme()
+                .name(jwtScheme)
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT")
@@ -39,11 +42,9 @@ class SwaggerConfig {
     }
 
     @Bean
-    fun customize(): OperationCustomizer {
+    fun operationCustomizer(): OperationCustomizer {
         return OperationCustomizer { operation: Operation, handlerMethod: HandlerMethod ->
-            val methodAnnotation = handlerMethod.getMethodAnnotation(
-                DisableSwaggerSecurity::class.java
-            )
+            val methodAnnotation = handlerMethod.getMethodAnnotation(DisableSwaggerSecurity::class.java)
             if (methodAnnotation != null) {
                 operation.security = emptyList()
             }
@@ -53,8 +54,8 @@ class SwaggerConfig {
 
     private fun apiInfo(): Info {
         return Info()
-            .title("test API")
-            .description("test for CI-CD")
+            .title("Test API")
+            .description("Test for CI-CD")
             .version("1.0.0")
     }
 }
