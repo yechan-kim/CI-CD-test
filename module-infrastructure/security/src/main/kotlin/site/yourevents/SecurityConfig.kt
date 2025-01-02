@@ -25,7 +25,7 @@ class SecurityConfig {
             .httpBasic { it.disable() }
 
             .authorizeHttpRequests {
-                it.requestMatchers("/swagger-ui/**", "/v3/**", "/favicon.ico").permitAll()
+                it.requestMatchers("/swagger-ui/**", "/v3/**", "/favicon.ico", "/health-check").permitAll()
                     .anyRequest().authenticated()
             }
 
