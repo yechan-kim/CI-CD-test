@@ -91,4 +91,4 @@ jobs:
           username: ${{secrets.DEV_USERNAME}}
           key: ${{secrets.DEV_KEY}}
           script: |
-            sudo ~/deploy.sh
+            echo "build success"
